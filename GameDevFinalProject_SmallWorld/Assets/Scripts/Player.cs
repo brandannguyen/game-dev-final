@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
         Vector2 mousePos = new(mousePosition.x, mousePosition.y);
         Vector2 currPos = new(this.transform.position.x, this.transform.position.y);
         distanceToMouse = Vector2.Distance(mousePos, currPos);
-        Debug.Log(distanceToMouse);
 
         // determines the current velocuty based on the distance the player is from the mouse
         if (distanceToMouse > distanceThreshold)
