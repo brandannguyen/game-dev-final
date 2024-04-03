@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public float velocityScaler;
     [Tooltip("This variable controls how far the mouse can be from the player until they are at max speed.")]
     public float distanceThreshold;
+    [Tooltip("The percentage of the collision's scale to add or subtract to the player.")]
+    public float growthPercentage;
 
     private Vector3 mousePosition;
     private float currentMaxVelocity;
@@ -56,5 +58,31 @@ public class Player : MonoBehaviour
         Vector3 newPos = new(twoDPos.normalized.x * currentVelocity, twoDPos.normalized.y * currentVelocity, 0);
         this.transform.position += newPos;
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Sun") {  // special case for sun
+            // Get the current size of the player
+            Vector3 currScale = this.transform.localScale;
+            // Calculate the change of scale that will be added to the players scale
+            float delta = collision.transform.localScale.x * growthPercentage *
+                            ((currScale.x - collision.transform.localScale.x) / Mathf.Abs(currScale.x - collision.transform.localScale.x));
+            this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
+
+            // Remove collided gameObject if it is not the sun
+            Destroy(collision.gameObject);
+        }
+        else  // win and lose conditions here
+        {
+            if(this.transform.localScale.x > collision.transform.localScale.x)
+            {
+                Debug.Log("YOU WIN");
+            }
+            else
+            {
+                Debug.Log("YOU LOSE");
+            }
+        }
     }
 }
