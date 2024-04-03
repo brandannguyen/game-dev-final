@@ -5,8 +5,9 @@ using UnityEngine;
 public class Cam : MonoBehaviour
 {
     public Transform player;
+    [Tooltip("The distance from the player in the z plane.")]
     public float distnaceFromPlayer;
-    [Tooltip("This is the value that is how much the camera zooms out in proportion to how much the player grows")]
+    [Tooltip("This is the value that is how much the camera zooms out in proportion to how much the player grows.")]
     public float zoomFactor;
 
     // Update is called once per frame

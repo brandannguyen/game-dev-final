@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+
 
 public class Player : MonoBehaviour
 {
@@ -32,11 +35,12 @@ public class Player : MonoBehaviour
         currentSize = this.transform.localScale.x;
         currentMaxVelocity = minimumMaxVelocity * (velocityScaler * currentSize);
 
-        // gets the mouse's postion in game and finds the distance betweent the player and there
+        // gets the mouse's postion in game and finds the distance between the player and there
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 20f));
-        distanceToMouse = Mathf.Sqrt(
-            (mousePosition.x - this.transform.position.x) * (mousePosition.x - this.transform.position.x) + 
-            (mousePosition.y - this.transform.position.y) * (mousePosition.y - this.transform.position.y));
+        Vector2 mousePos = new(mousePosition.x, mousePosition.y);
+        Vector2 currPos = new(this.transform.position.x, this.transform.position.y);
+        distanceToMouse = Vector2.Distance(mousePos, currPos);
+        Debug.Log(distanceToMouse);
 
         // determines the current velocuty based on the distance the player is from the mouse
         if (distanceToMouse > distanceThreshold)
@@ -48,9 +52,10 @@ public class Player : MonoBehaviour
             currentVelocity = (distanceToMouse / distanceThreshold) * currentMaxVelocity;
         }
 
-        // calcultates the players new coordinates and sets the players transform to them
-        this.transform.position = new(mousePosition.normalized.x * currentVelocity, 
-                                      mousePosition.normalized.y * currentVelocity, 20f);
+        // calculates the players new coordinates and adds them to their current position
+        Vector2 twoDPos = new(mousePosition.x - this.transform.position.x, mousePosition.y - this.transform.position.y);
+        Vector3 newPos = new(twoDPos.normalized.x * currentVelocity, twoDPos.normalized.y * currentVelocity, 0);
+        this.transform.position += newPos;
 
     }
 }

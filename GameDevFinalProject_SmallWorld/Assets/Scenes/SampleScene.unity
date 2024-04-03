@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f711a33314be04c88b333f9f3d1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumMaxVelocity: 10
+  minimumMaxVelocity: 1
   velocityScaler: 1
   distanceThreshold: 10
 --- !u!1660057539 &9223372036854775807
