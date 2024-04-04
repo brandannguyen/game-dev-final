@@ -73,15 +73,15 @@ public class Player : MonoBehaviour
             // Remove collided gameObject if it is not the sun
             Destroy(collision.gameObject);
         }
-        else  // win and lose conditions here
+        else  // win and lose conditions here (assumes collision with sun)
         {
             if(this.transform.localScale.x > collision.transform.localScale.x)
             {
-                Debug.Log("YOU WIN");
+                //Debug.Log("YOU WIN");
             }
             else
             {
-                Debug.Log("YOU LOSE");
+                //Debug.Log("YOU LOSE");
             }
         }
     }
