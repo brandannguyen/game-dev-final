@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Sun") {  // special case for sun
+        if (collision.gameObject.tag == "AstralBody") {
             // Get the current size of the player
             Vector3 currScale = this.transform.localScale;
             // Calculate the change of scale that will be added to the players scale
