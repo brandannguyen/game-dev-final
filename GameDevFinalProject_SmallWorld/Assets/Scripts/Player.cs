@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "AstralBody") {
             // Get the current size of the player
@@ -84,5 +84,16 @@ public class Player : MonoBehaviour
                 //Debug.Log("YOU LOSE");
             }
         }
-    }
+    }*/
+
+    /* //This code is broken, doesn't work nope nope nope :(
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bounds"))
+        {
+            Debug.Log("Touched Collider");
+            currentVelocity = 0.0f;
+        }
+
+    }*/
 }
