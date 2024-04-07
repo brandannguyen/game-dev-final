@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         }
     }*/
 
-    /* //This code is broken, doesn't work nope nope nope :(
+    //This code is broken, doesn't work nope nope nope :(
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bounds"))
@@ -95,5 +95,26 @@ public class Player : MonoBehaviour
             currentVelocity = 0.0f;
         }
 
-    }*/
+        //Checks for Asteroid Collision
+        if (collision.CompareTag("Asteroid"))
+        {
+            Debug.Log("Touched Asteroid");
+            //TODO: Reduce Player Size when this happens
+            //Additionally, we can handle this collision in the asteroid script if it is easier
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("AstralBody"))
+        {
+            // Get the current size of the player
+            Vector3 currScale = this.transform.localScale;
+            // Calculate the change of scale that will be added to the players scale
+            float delta = collision.transform.localScale.x * growthPercentage *
+                            ((currScale.x - collision.transform.localScale.x) / Mathf.Abs(currScale.x - collision.transform.localScale.x));
+            this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
+            //I think we need a more drastic change in size -Brandan
+            Destroy(collision.gameObject);
+        }
+
+    }
 }
