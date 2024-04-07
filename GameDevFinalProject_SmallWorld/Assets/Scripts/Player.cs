@@ -86,9 +86,9 @@ public class Player : MonoBehaviour
         }
     }*/
 
-    //This code is broken, doesn't work nope nope nope :(
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //This code broken pls fix <3 -Brandan
         if (collision.CompareTag("Bounds"))
         {
             Debug.Log("Touched Collider");
