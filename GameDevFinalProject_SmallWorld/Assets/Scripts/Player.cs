@@ -118,8 +118,7 @@ public class Player : MonoBehaviour
                     wallPos = collision.gameObject.transform.position; break;
             }
         }
-
-        if (collision.gameObject.CompareTag("AstralBody"))
+        else if (collision.gameObject.CompareTag("AstralBody"))
         {
             Debug.Log("Astral");
             // Get the current size of the player
