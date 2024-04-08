@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9041994299995416717, guid: 10eda568a7de7e04693212985f98844e, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9041994299995416717, guid: 10eda568a7de7e04693212985f98844e, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
