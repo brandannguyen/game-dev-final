@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour
     public float distanceThreshold;
     [Tooltip("The percentage of the collision's scale to add or subtract to the player.")]
     public float growthPercentage;
+    [Tooltip("If the player's size/scale becomes smaller than this, they lose")]
+    public float minSize;
 
     private Vector3 mousePosition;
     private float currentMaxVelocity;
@@ -98,7 +101,6 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
-        Debug.Log("Collision");
         if (collision.gameObject.CompareTag("Bounds"))
         {
             // jank af
@@ -122,12 +124,36 @@ public class Player : MonoBehaviour
         {
             // Get the current size of the player
             Vector3 currScale = this.transform.localScale;
+            float currSize = this.GetComponent<CircleCollider2D>().bounds.size.magnitude;
             // Calculate the change of scale that will be added to the players scale
-            float delta = collision.transform.localScale.x * growthPercentage *
+            float delta = 0;
+            float collidedSize = 0;
+            if (collision.gameObject.CompareTag("Asteroid"))  // polygon collider
+            {
+                collidedSize = collision.gameObject.GetComponent<PolygonCollider2D>().bounds.size.magnitude;
+                delta = collidedSize * growthPercentage *
+                            ((currSize - collidedSize) / Mathf.Abs(collidedSize));
+            }
+            else if (collision.gameObject.CompareTag("AstralBody"))  // circle collider
+            {
+                collidedSize = collision.gameObject.GetComponent<CircleCollider2D>().bounds.size.magnitude;
+                delta = collidedSize * growthPercentage *
+                            ((currSize - collidedSize) / Mathf.Abs(collidedSize));
+            }
+            else  // just in case lol
+            {
+                delta = collision.transform.localScale.x * growthPercentage *
                             ((currScale.x - collision.transform.localScale.x) / Mathf.Abs(currScale.x - collision.transform.localScale.x));
+                
+            }
+            // set size and destroy collided object
             this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
-            //I think we need a more drastic change in size -Brandan
             Destroy(collision.gameObject);
+
+            if (this.transform.localScale.x <= minSize)
+            {
+                Debug.Log("You lose");
+            }
         }
         else if (collision.gameObject.CompareTag("Sun"))
         {

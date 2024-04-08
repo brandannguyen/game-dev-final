@@ -392,7 +392,8 @@ MonoBehaviour:
   minimumMaxVelocity: 0.001
   velocityScaler: 5
   distanceThreshold: 15
-  growthPercentage: 0.0001
+  growthPercentage: 2
+  minSize: 4
 --- !u!58 &960326648
 CircleCollider2D:
   m_ObjectHideFlags: 0
