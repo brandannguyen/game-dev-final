@@ -21,11 +21,13 @@ public class Player : MonoBehaviour
     private float currentVelocity;
     private float currentSize;
     private float distanceToMouse;
+    private int wallNum;  // right is 1, top is 2, left is 3, bottom is 4
+    private Vector3 wallPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        wallNum = 0;
     }
 
     // Update is called once per frame
@@ -55,57 +57,72 @@ public class Player : MonoBehaviour
 
         // calculates the players new coordinates and adds them to their current position
         Vector2 twoDPos = new(mousePosition.x - this.transform.position.x, mousePosition.y - this.transform.position.y);
-        Vector3 newPos = new(twoDPos.normalized.x * currentVelocity, twoDPos.normalized.y * currentVelocity, 0);
-        this.transform.position += newPos;
+        Vector3 newPosOffset = new(twoDPos.normalized.x * currentVelocity, twoDPos.normalized.y * currentVelocity, 0);
+        Vector3 newPos = this.transform.position + newPosOffset;
+        switch (wallNum)
+        {
+            case 1:  // right wall
+                if(newPos.x < wallPos.x)
+                {
+                    newPos.x = wallPos.x - 15;
 
+                }
+                break;
+            case 2:  // top wall
+                if (newPos.y < wallPos.y)
+                {
+                    newPos.y = wallPos.y - 15;
+
+                }
+                break;
+            case 3:  // left wall
+                if (newPos.x > wallPos.x)
+                {
+                    newPos.x = wallPos.x + 15;
+
+                }
+                break;
+            case 4:  // bottom wall
+                if (newPos.y > wallPos.y)
+                {
+                    newPos.y = wallPos.y + 15;
+
+                }
+                break;
+            default:
+                break;
+        }
+        this.transform.position = newPos;
+
+        wallNum = 0;
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
-        if (collision.gameObject.tag == "AstralBody") {
-            // Get the current size of the player
-            Vector3 currScale = this.transform.localScale;
-            // Calculate the change of scale that will be added to the players scale
-            float delta = collision.transform.localScale.x * growthPercentage *
-                            ((currScale.x - collision.transform.localScale.x) / Mathf.Abs(currScale.x - collision.transform.localScale.x));
-            this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
-
-            // Remove collided gameObject if it is not the sun
-            Destroy(collision.gameObject);
-        }
-        else  // win and lose conditions here (assumes collision with sun)
-        {
-            if(this.transform.localScale.x > collision.transform.localScale.x)
-            {
-                //Debug.Log("YOU WIN");
-            }
-            else
-            {
-                //Debug.Log("YOU LOSE");
-            }
-        }
-    }*/
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+        Debug.Log("Collision");
         //This code broken pls fix <3 -Brandan
-        if (collision.CompareTag("Bounds"))
+        if (collision.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("Touched Collider");
-            currentVelocity = 0.0f;
+            switch (collision.gameObject.name) // right is 1, top is 2, left is 3, bottom is 4
+            {
+                case "RightWall":
+                    wallNum = 1;
+                    wallPos = collision.gameObject.transform.position; break;
+                case "LeftWall":
+                    wallNum = 3;
+                    wallPos = collision.gameObject.transform.position; break;
+                case "TopWall":
+                    wallNum = 2;
+                    wallPos = collision.gameObject.transform.position; break;
+                case "BottomWall":
+                    wallNum = 4;
+                    wallPos = collision.gameObject.transform.position; break;
+            }
         }
 
-        //Checks for Asteroid Collision
-        if (collision.CompareTag("Asteroid"))
+        if (collision.gameObject.CompareTag("AstralBody"))
         {
-            Debug.Log("Touched Asteroid");
-            //TODO: Reduce Player Size when this happens
-            //Additionally, we can handle this collision in the asteroid script if it is easier
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.CompareTag("AstralBody"))
-        {
+            Debug.Log("Astral");
             // Get the current size of the player
             Vector3 currScale = this.transform.localScale;
             // Calculate the change of scale that will be added to the players scale
@@ -114,6 +131,17 @@ public class Player : MonoBehaviour
             this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
             //I think we need a more drastic change in size -Brandan
             Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Sun"))
+        {
+            if (this.transform.localScale.x > collision.transform.localScale.x)
+            {
+                //Debug.Log("YOU WIN");
+            }
+            else
+            {
+                //Debug.Log("YOU LOSE");
+            }
         }
 
     }
