@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         Vector2 twoDPos = new(mousePosition.x - this.transform.position.x, mousePosition.y - this.transform.position.y);
         Vector3 newPosOffset = new(twoDPos.normalized.x * currentVelocity, twoDPos.normalized.y * currentVelocity, 0);
         Vector3 newPos = this.transform.position + newPosOffset;
-        switch (wallNum)
+        switch (wallNum)  // don't love those magic numbers (+- 15). Done this way to assure new collision occurs
         {
             case 1:  // right wall
                 if(newPos.x < wallPos.x)
@@ -93,16 +93,15 @@ public class Player : MonoBehaviour
                 break;
         }
         this.transform.position = newPos;
-
         wallNum = 0;
     }
 
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
         Debug.Log("Collision");
-        //This code broken pls fix <3 -Brandan
         if (collision.gameObject.CompareTag("Bounds"))
         {
+            // jank af
             switch (collision.gameObject.name) // right is 1, top is 2, left is 3, bottom is 4
             {
                 case "RightWall":
