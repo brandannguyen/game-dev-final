@@ -21,14 +21,16 @@ public class AsteroidBeltSpawnManager : MonoBehaviour
     [Tooltip("Put you asteroid prefabs here.")]
     public List<GameObject> asteroids;
 
-    private int currAsteroids;
+    [Tooltip("The current number of asteroids spawned in the belt. Used for internal processes.")]
+    public  int currAsteroids_DONOTSET;
+
     private float timer;
     private float x, y;
     private float offset;
     // Start is called before the first frame update
     void Start()
     {
-        currAsteroids = 0;
+        currAsteroids_DONOTSET = 0;
         timer = 0;
     }
 
@@ -36,10 +38,10 @@ public class AsteroidBeltSpawnManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer > spawnTime && currAsteroids < maxAsteroids)
+        if(timer > spawnTime && currAsteroids_DONOTSET < maxAsteroids)
         {
             // spawn asteroid
-            currAsteroids++;
+            currAsteroids_DONOTSET++;
             // pick the GO to spawn
             int index = Random.Range(0, asteroids.Count);
             GameObject e = asteroids[index];
@@ -58,6 +60,9 @@ public class AsteroidBeltSpawnManager : MonoBehaviour
             instance.AddComponent<SunOrbitMovement>();
             offset = Random.Range(movementSpeedOffset * -1, movementSpeedOffset);
             instance.GetComponent<SunOrbitMovement>().orbitRate = movementSpeed + offset;
+
+            // add on destroy to object in order to track how many asteroids there are
+            instance.AddComponent<AsteroidBeltDecrement>();
 
             // reset timer
             timer = 0;

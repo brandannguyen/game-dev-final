@@ -8,6 +8,7 @@ TagManager:
   - AstralBody
   - Sun
   - Asteroid
+  - AsteroidBeltSpawnManager
   layers:
   - Default
   - TransparentFX

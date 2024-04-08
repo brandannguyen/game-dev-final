@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 602422927}
   m_Layer: 0
   m_Name: AsteroidBelt
-  m_TagString: Untagged
+  m_TagString: AsteroidBeltSpawnManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   spawnPosition: {x: 50, y: 16}
   spawnOffsetX: 2
   spawnOffsetY: 2
-  spawnTime: 1
+  spawnTime: 2
   movementSpeed: 0.2
   movementSpeedOffset: 0.1
   maxAsteroids: 20
@@ -184,6 +184,7 @@ MonoBehaviour:
   - {fileID: 1676493630015168539, guid: defc724761a63b9409370ed0cc96be2d, type: 3}
   - {fileID: 6446407423213344279, guid: f848ee8ad10e2bd419267e42282bc4de, type: 3}
   - {fileID: 6376040170101941460, guid: c7c3c702e2f5e9341a2da369d2c0fc29, type: 3}
+  currAsteroids_DONOTSET: 0
 --- !u!1 &653829102
 GameObject:
   m_ObjectHideFlags: 0
