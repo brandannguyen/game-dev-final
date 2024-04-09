@@ -127,12 +127,12 @@ public class Player : MonoBehaviour
             Vector3 currScale = this.transform.localScale;
             float currSize = this.GetComponent<CircleCollider2D>().bounds.size.magnitude;
             // Calculate the change of scale that will be added to the players scale
-            float delta = 0;
-            float collidedSize = 0;
+            float delta;
+            float collidedSize;
             if (collision.gameObject.CompareTag("Asteroid"))  // polygon collider
             {
                 collidedSize = collision.gameObject.GetComponent<PolygonCollider2D>().bounds.size.magnitude;
-                delta = growthPercentage * (collidedSize / currSize);
+                delta = growthPercentage * collidedSize;
                 if(collidedSize > currSize)
                 {
                     delta *= -1;
@@ -141,8 +141,11 @@ public class Player : MonoBehaviour
             else if (collision.gameObject.CompareTag("AstralBody"))  // circle collider
             {
                 collidedSize = collision.gameObject.GetComponent<CircleCollider2D>().bounds.size.magnitude;
-                delta = collidedSize * growthPercentage *
-                            ((currSize - collidedSize) / Mathf.Abs(collidedSize));
+                delta = growthPercentage * collidedSize;
+                if (collidedSize > currSize)
+                {
+                    delta *= -1;
+                }
             }
             else  // just in case lol
             {
