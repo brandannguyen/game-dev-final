@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Color = UnityEngine.Color;
 
 public class Sun : MonoBehaviour
@@ -38,7 +39,7 @@ public class Sun : MonoBehaviour
         currTime += Time.deltaTime;
 
         if(currTime >= totalGameTime) {
-            Debug.Log("Time is up, you lose");
+            SceneManager.LoadScene("LoseScreen");
         }
         else
         {
