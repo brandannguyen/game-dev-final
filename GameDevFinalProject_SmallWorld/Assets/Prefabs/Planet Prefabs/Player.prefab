@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f711a33314be04c88b333f9f3d1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumMaxVelocity: 0.001
+  minimumMaxVelocity: 0.005
   velocityScaler: 5
   distanceThreshold: 15
-  growthPercentage: 1
+  growthPercentage: 0.5
   minSize: 4
 --- !u!58 &6178836266744698241
 CircleCollider2D:
