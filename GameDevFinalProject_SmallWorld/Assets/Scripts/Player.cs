@@ -135,9 +135,12 @@ public class Player : MonoBehaviour
             float collidedSize;
             if (collision.gameObject.CompareTag("Asteroid"))  // polygon collider
             {
+                //Math to play particleFX where the player was hit, rotate relative position on circle collider
+                Vector3 hitPos = collision.contacts[0].point;
+                Vector3 hitDir = (hitPos - this.transform.position).normalized;
+                float angle = Mathf.Atan2(hitDir.y, hitDir.x) * Mathf.Rad2Deg;
+                Instantiate(hitEffect, hitPos, Quaternion.Euler(0,0,angle));
                 //SoundFX for getting hit
-                Vector3 hitPos = this.transform.position;
-                Instantiate(hitEffect, hitPos, Quaternion.identity);
                 AudioSource.PlayClipAtPoint(hitSound, hitPos);
 
                 collidedSize = collision.gameObject.GetComponent<PolygonCollider2D>().bounds.size.magnitude;
