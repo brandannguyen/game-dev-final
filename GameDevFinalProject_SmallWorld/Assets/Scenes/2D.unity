@@ -1163,6 +1163,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5383704225088662973, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bf5e663407be176458e157efdbc90479, type: 3}
+    - target: {fileID: 5383704225088662973, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 9156521712308604597, guid: bfcdadcdf00ebe5428f82107501b3e87, type: 3}
+    - target: {fileID: 5383704225088662973, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
+      propertyPath: absorbSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a6644c54cb3cb9e4cb59e50f5dc93834, type: 3}
     - target: {fileID: 7389626392073524352, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
       propertyPath: m_Name
       value: Player

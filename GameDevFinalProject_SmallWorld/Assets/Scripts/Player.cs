@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     [Tooltip("If the player's size/scale becomes smaller than this, they lose")]
     public float minSize;
 
+    public AudioClip hitSound;
+    public AudioClip absorbSound;
+    public GameObject hitEffect;
+
     private Vector3 mousePosition;
     private float currentMaxVelocity;
     private float currentVelocity;
@@ -131,6 +135,11 @@ public class Player : MonoBehaviour
             float collidedSize;
             if (collision.gameObject.CompareTag("Asteroid"))  // polygon collider
             {
+                //SoundFX for getting hit
+                Vector3 hitPos = this.transform.position;
+                Instantiate(hitEffect, hitPos, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(hitSound, hitPos);
+
                 collidedSize = collision.gameObject.GetComponent<PolygonCollider2D>().bounds.size.magnitude;
                 delta = growthPercentage * collidedSize;
                 if(collidedSize > currSize)
@@ -140,6 +149,10 @@ public class Player : MonoBehaviour
             }
             else if (collision.gameObject.CompareTag("AstralBody"))  // circle collider
             {
+                //SoundFX for absorbing planet
+                Vector3 absorbPos = this.transform.position;
+                AudioSource.PlayClipAtPoint(absorbSound, absorbPos);
+
                 collidedSize = collision.gameObject.GetComponent<CircleCollider2D>().bounds.size.magnitude;
                 delta = growthPercentage * collidedSize;
                 if (collidedSize > currSize)
