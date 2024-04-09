@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
 
 
@@ -131,8 +132,11 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Asteroid"))  // polygon collider
             {
                 collidedSize = collision.gameObject.GetComponent<PolygonCollider2D>().bounds.size.magnitude;
-                delta = collidedSize * growthPercentage *
-                            ((currSize - collidedSize) / Mathf.Abs(collidedSize));
+                delta = growthPercentage * (collidedSize / currSize);
+                if(collidedSize > currSize)
+                {
+                    delta *= -1;
+                }
             }
             else if (collision.gameObject.CompareTag("AstralBody"))  // circle collider
             {
@@ -146,24 +150,25 @@ public class Player : MonoBehaviour
                             ((currScale.x - collision.transform.localScale.x) / Mathf.Abs(currScale.x - collision.transform.localScale.x));
                 
             }
+            Debug.Log(delta);
             // set size and destroy collided object
             this.transform.localScale = new(currScale.x + delta, currScale.y + delta, currScale.z + delta);
             Destroy(collision.gameObject);
 
             if (this.transform.localScale.x <= minSize)
             {
-                Debug.Log("You lose");
+                SceneManager.LoadScene("LoseScreen");
             }
         }
         else if (collision.gameObject.CompareTag("Sun"))
         {
             if (this.transform.localScale.x > collision.transform.localScale.x)
             {
-                //Debug.Log("YOU WIN");
+                SceneManager.LoadScene("WinScreen");
             }
             else
             {
-                //Debug.Log("YOU LOSE");
+                SceneManager.LoadScene("LoseScreen");
             }
         }
 
