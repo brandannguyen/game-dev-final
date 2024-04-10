@@ -344,6 +344,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[40].y
       value: -0.20669425
       objectReference: {fileID: 0}
+    - target: {fileID: 1770731684669075452, guid: 5c3659959ebb30a489d7eef3009f8afc, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1989084925316332678, guid: 5c3659959ebb30a489d7eef3009f8afc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.38059

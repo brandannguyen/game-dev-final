@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5888586207863670118, guid: df633265b44cbf44eae676819a0f1900, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 172733410043596393, guid: df633265b44cbf44eae676819a0f1900, type: 3}
       propertyPath: m_Name
       value: AsterSmall2 Variant
