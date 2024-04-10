@@ -154,13 +154,16 @@ public class Player : MonoBehaviour
             {
                 //SoundFX for absorbing planet
                 Vector3 absorbPos = this.transform.position;
-                AudioSource.PlayClipAtPoint(absorbSound, absorbPos);
-
                 collidedSize = collision.gameObject.GetComponent<CircleCollider2D>().bounds.size.magnitude;
                 delta = growthPercentage * collidedSize;
                 if (collidedSize > currSize)
                 {
+                    AudioSource.PlayClipAtPoint(hitSound, absorbPos);
                     delta *= -1;
+                }
+                else
+                {
+                    AudioSource.PlayClipAtPoint(absorbSound, absorbPos);
                 }
             }
             else  // just in case lol
