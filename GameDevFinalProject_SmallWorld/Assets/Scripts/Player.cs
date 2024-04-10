@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float growthPercentage;
     [Tooltip("If the player's size/scale becomes smaller than this, they lose")]
     public float minSize;
+    
 
     public AudioClip hitSound;
     public AudioClip absorbSound;
@@ -41,7 +42,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // player movement
         // calculates the maximum speed the player could go based off current size
         currentSize = this.transform.localScale.x;
