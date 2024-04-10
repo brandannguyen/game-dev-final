@@ -41,6 +41,5 @@ public class sunCam : MonoBehaviour
         }
 
         sunCamera.rect = new Rect(camX, camY, .1f, .1f);
-        UnityEngine.Debug.Log(" " + camX + ", " + camY);
     }
 }
