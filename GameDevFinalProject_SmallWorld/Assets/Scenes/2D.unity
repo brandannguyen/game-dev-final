@@ -16492,7 +16492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 860730567241838236, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
       propertyPath: velocityScaler
-      value: 0.3
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 860730567241838236, guid: 005243a3189901648aaa05e8f0163ab6, type: 3}
       propertyPath: growthPercentage
