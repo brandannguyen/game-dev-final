@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Sun"))
         {
-            if (this.transform.localScale.x > collision.transform.localScale.x)
+            if (this.transform.localScale.x >= 42)
             {
                 SceneManager.LoadScene("WinScreen");
             }
