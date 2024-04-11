@@ -42,6 +42,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(this.transform.localScale.x > 45)  // fix to prevent everything from disappearing when the player's scale is greater than 50
+        {
+            this.transform.localScale = new(45, 45, 45);
+        }
+
         // player movement
         // calculates the maximum speed the player could go based off current size
         currentSize = this.transform.localScale.x;
